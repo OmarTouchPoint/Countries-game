@@ -1,0 +1,58 @@
+---
+import "../styles/globals.css";
+
+const countrysAndCapitals = [
+    { country: 'España', capital: 'Madrid' },
+    { country: 'Francia', capital: 'París' },
+    { country: 'Japón', capital: 'Tokio' },
+    { country: 'Alemania', capital: 'Berlín' }
+];
+---
+
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Juego de Capitales</title>
+  <!-- <link rel="stylesheet" href="/styles/globals.css"> -->
+</head>
+<body>
+	<section class="main-container">
+        <main class="content-container">
+            <h1 class="game-instructions">
+                Da click en un elemento de la primera columna y luego en otro de la segunda para relacionarlos
+            </h1>
+            <div class="content-container-body">
+                <div class="countrys-col content-col">
+                    {
+                        countrysAndCapitals.map((item) => (
+                            <div id={item.country} class="country-button" onclick="handleClick( event, 'country')">
+                                {item.country}
+                            </div>
+                        ))
+                    }
+                </div>
+                <div class="capitals-col content-col">
+                    {
+                        countrysAndCapitals.map((item) => (
+                            <div id={item.capital} class="capital-button" onclick="handleClick( event , 'capital')">
+                                {item.capital}
+                            </div>
+                        ))
+                    }
+                </div>
+            </div>
+        </main>
+    </section>
+    <div id="congratulationsModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeModal">&times;</span>
+            <p>¡Felicidades! Has emparejado correctamente todos los países y sus capitales.</p>
+        </div>
+    </div>
+
+    <script src="/src/scripts/game.js" is:inline>
+       
+    </script>
+</body>
+</html>

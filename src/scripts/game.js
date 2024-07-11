@@ -1,24 +1,24 @@
-const countrysAndCapitals = [
-    { country: 'España', capital: 'Madrid' },
-    { country: 'Francia', capital: 'París' },
-    { country: 'Japón', capital: 'Tokio' },
-    { country: 'Alemania', capital: 'Berlín' }
+const concepts = [
+    { concept1: 'España', concept2: 'Madrid' },
+    { concept1: 'Francia', concept2: 'París' },
+    { concept1: 'Japón', concept2: 'Tokio' },
+    { concept1: 'Alemania', concept2: 'Berlín' }
 ];
 
-let selectedCountry = null;
-let selectedCapital = null;
+let selectedConcept1 = null;
+let selectedConcept2 = null;
 let correctPairs = 0;
 
 document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.country-button').forEach(button => {
+    document.querySelectorAll('.concept1-button').forEach(button => {
         button.addEventListener('click', event => {
-            handleClick(event.target, 'country');
+            handleClick(event.target, 'concept1');
         });
     });
 
-    document.querySelectorAll('.capital-button').forEach(button => {
+    document.querySelectorAll('.concept2-button').forEach(button => {
         button.addEventListener('click', event => {
-            handleClick(event.target, 'capital');
+            handleClick(event.target, 'concept2');
         });
     });
 
@@ -41,19 +41,19 @@ function handleClick(element, type) {
         element.classList.remove('incorrect');
     }
 
-    if (selectedCountry && selectedCapital) {
+    if (selectedConcept1 && selectedConcept2) {
         resetSelections();
     }
 
-    if (type === 'country') {
-        selectedCountry = element;
-    } else if (type === 'capital') {
-        selectedCapital = element;
+    if (type === 'concept1') {
+        selectedConcept1 = element;
+    } else if (type === 'concept2') {
+        selectedConcept2 = element;
     }
 
     element.classList.add('selected');
 
-    if (selectedCountry && selectedCapital) {
+    if (selectedConcept1 && selectedConcept2) {
         checkMatch();
     }
 }
@@ -65,34 +65,34 @@ function resetSelections() {
 }
 
 function checkMatch() {
-    const country = selectedCountry.id;
-    const capital = selectedCapital.id;
-    const countryObj = countrysAndCapitals.find(item => item.country === country);
+    const concept1 = selectedConcept1.id;
+    const concept2 = selectedConcept2.id;
+    const countryObj = concepts.find(item => item.concept1 === concept1);
 
-    if (countryObj.capital === capital) {
-        selectedCountry.classList.remove('selected');
-        selectedCapital.classList.remove('selected');
-        selectedCountry.classList.add('correct');
-        selectedCapital.classList.add('correct');
-        selectedCountry.style.pointerEvents = 'none';
-        selectedCapital.style.pointerEvents = 'none';
+    if (countryObj.concept2 === concept2) {
+        selectedConcept1.classList.remove('selected');
+        selectedConcept2.classList.remove('selected');
+        selectedConcept1.classList.add('correct');
+        selectedConcept2.classList.add('correct');
+        selectedConcept1.style.pointerEvents = 'none';
+        selectedConcept2.style.pointerEvents = 'none';
         correctPairs++;
 
-        if (correctPairs === countrysAndCapitals.length) {
+        if (correctPairs === concepts.length) {
             showModal();
         }
     } else {
-        selectedCountry.classList.add('incorrect');
-        selectedCapital.classList.add('incorrect');
+        selectedConcept1.classList.add('incorrect');
+        selectedConcept2.classList.add('incorrect');
         setTimeout(() => {
-            selectedCountry.classList.remove('incorrect');
-            selectedCapital.classList.remove('incorrect');
+            selectedConcept1.classList.remove('incorrect');
+            selectedConcept2.classList.remove('incorrect');
             resetSelections();
         }, 1000);
     }
 
-    selectedCountry = null;
-    selectedCapital = null;
+    selectedConcept1 = null;
+    selectedConcept2 = null;
 }
 
 function showModal() {

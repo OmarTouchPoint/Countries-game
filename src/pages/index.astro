@@ -1,11 +1,13 @@
 ---
 import "../styles/globals.css";
 
-const countrysAndCapitals = [
-    { country: 'España', capital: 'Madrid' },
-    { country: 'Francia', capital: 'París' },
-    { country: 'Japón', capital: 'Tokio' },
-    { country: 'Alemania', capital: 'Berlín' }
+const instructions = 'Relaciona cada país con su capital haciendo click en uno y luego en otro.';
+
+const concepts = [
+    { concept1: 'España', concept2: 'Madrid' },
+    { concept1: 'Francia', concept2: 'París' },
+    { concept1: 'Japón', concept2: 'Tokio' },
+    { concept1: 'Alemania', concept2: 'Berlín' }
 ];
 ---
 
@@ -20,23 +22,23 @@ const countrysAndCapitals = [
 	<section class="main-container">
         <main class="content-container">
             <h1 class="game-instructions">
-                Da click en un elemento de la primera columna y luego en otro de la segunda para relacionarlos
+                {instructions}
             </h1>
             <div class="content-container-body">
                 <div class="countrys-col content-col">
                     {
-                        countrysAndCapitals.map((item) => (
-                            <div id={item.country} class="country-button" onclick="handleClick( event, 'country')">
-                                {item.country}
+                        concepts.map((item) => (
+                            <div id={item.concept1} class="concept1-button" onclick="handleClick( event, 'country')">
+                                {item.concept1}
                             </div>
                         ))
                     }
                 </div>
                 <div class="capitals-col content-col">
                     {
-                        countrysAndCapitals.map((item) => (
-                            <div id={item.capital} class="capital-button" onclick="handleClick( event , 'capital')">
-                                {item.capital}
+                        concepts.map((item) => (
+                            <div id={item.concept2} class="concept2-button" onclick="handleClick( event , 'capital')">
+                                {item.concept2}
                             </div>
                         ))
                     }

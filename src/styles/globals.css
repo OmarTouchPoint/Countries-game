@@ -39,7 +39,7 @@ html, body{
     flex-direction: column;
     row-gap: 30px;
 }
-.country-button, .capital-button{
+.concept1-button, .concept2-button{
     text-align: center;
     padding: 20px 0px;
     border: 1px solid #6A7FC1;
@@ -51,7 +51,7 @@ html, body{
     cursor: pointer;
 
 }
-.country-button:hover, .capital-button:hover, .selected{
+.concept1-button:hover, .concept2-button:hover, .selected{
     background-color: #47C8FE;
     color: #293549;
     

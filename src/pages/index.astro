@@ -1,21 +1,36 @@
 ---
 import "../styles/globals.css";
+import {petitionsURL} from "../assets/urlBuilder";
+import {shuffleArray} from"../assets/shuffle";
 
-const instructions = 'Relaciona cada país con su capital haciendo click en uno y luego en otro.';
 
-const concepts = [
-    { concept1: 'España', concept2: 'Madrid' },
-    { concept1: 'Francia', concept2: 'París' },
-    { concept1: 'Japón', concept2: 'Tokio' },
-    { concept1: 'Alemania', concept2: 'Berlín' }
-];
+// const instructions = 'Relaciona cada país con su capital haciendo click en uno y luego en otro.';
+// const pagetitle = 'Juego de Capitales'
+// const concepts = [
+//     { concept1: 'España', concept2: 'Madrid' },
+//     { concept1: 'Francia', concept2: 'París' },
+//     { concept1: 'Japón', concept2: 'Tokio' },
+//     { concept1: 'Alemania', concept2: 'Berlín' }
+// ];
+
+    const data = await fetch(petitionsURL);
+
+    const pageData = await data.json()
+
+    const {instructions, pageTitle, concepts} = pageData;
+
+
+
+    const shuffledConcepts = await shuffleArray(concepts)
+
+
 ---
 
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Juego de Capitales</title>
+  <title>{pageTitle}</title>
   <!-- <link rel="stylesheet" href="/styles/globals.css"> -->
 </head>
 <body>
@@ -36,7 +51,7 @@ const concepts = [
                 </div>
                 <div class="capitals-col content-col">
                     {
-                        concepts.map((item) => (
+                        shuffledConcepts.map((item) => (
                             <div id={item.concept2} class="concept2-button" onclick="handleClick( event , 'capital')">
                                 {item.concept2}
                             </div>
@@ -52,9 +67,12 @@ const concepts = [
             <p>¡Felicidades! Has emparejado correctamente todos los países y sus capitales.</p>
         </div>
     </div>
+    <div id="concepts-container" data-concepts=`${JSON.stringify(concepts)}`></div>
+
 
     <script src="../scripts/game.js">
        
     </script>
+    
 </body>
 </html>

@@ -1,9 +1,5 @@
-const concepts = [
-    { concept1: 'España', concept2: 'Madrid' },
-    { concept1: 'Francia', concept2: 'París' },
-    { concept1: 'Japón', concept2: 'Tokio' },
-    { concept1: 'Alemania', concept2: 'Berlín' }
-];
+const conceptsContainer = document.getElementById('concepts-container');
+const concepts = JSON.parse(conceptsContainer.getAttribute('data-concepts'));
 
 let selectedConcept1 = null;
 let selectedConcept2 = null;

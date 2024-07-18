@@ -1,6 +1,6 @@
 ---
-import "../styles/globals.css"
-import Dashboard from "../components/Dashboard"
+import "../../styles/globals.css"
+import Dashboard from "../../components/Dashboard"
 ---
 <html lang="es">
 <head>
@@ -10,6 +10,9 @@ import Dashboard from "../components/Dashboard"
   <!-- <link rel="stylesheet" href="/styles/globals.css"> -->
 </head>
 <body>
-	<Dashboard/>
+  <main class="main-container">
+    <Dashboard client:load />
+
+  </main>
 </body>
 </html>

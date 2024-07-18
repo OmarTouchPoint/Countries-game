@@ -84,7 +84,13 @@ input:focus-visible, textarea:focus-visible{
 .save-button:hover{
     background-color: green;
 }
-
+.save-button:disabled{
+    background-color: gray;
+}
+.message{
+    font-size: 18px;
+    color:#fff;
+}
 
 .main-container{
     width: 100%;
@@ -140,8 +146,8 @@ input:focus-visible, textarea:focus-visible{
     
 }
 
-.correct {
-    background-color: green;
+.correct, .correct:hover {
+    background-color: green !important;
     color: white;
 }
 

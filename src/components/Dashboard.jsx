@@ -5,11 +5,10 @@ const Dashboard = () => {
     const [pageTitle, setPageTitle] = useState('');
     const [gameInstructions, setGameInstructions] = useState('');
     const [concepts, setConcepts] = useState([{ concept1: '', concept2: '' }]);
-    const [pass, setPass] = useState('');
-    // const [hideError, setHideError] = useState(true)
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [message, setMessage] = useState('');
+    const [isModified, setIsModified] = useState(false);
 
     useEffect(() => {
         fetch(petitionsURL)
@@ -34,6 +33,7 @@ const Dashboard = () => {
 
     const handleAddConceptPair = () => {
         setConcepts([...concepts, { concept1: '', concept2: '' }]);
+        setIsModified(true);
     };
 
     const handleConceptChange = (index, field, value) => {
@@ -44,21 +44,17 @@ const Dashboard = () => {
             return concept;
         });
         setConcepts(newConcepts);
+        setIsModified(true);
     };
 
     const handleRemoveConceptPair = (index) => {
         setConcepts(concepts.filter((_, i) => i !== index));
+        setIsModified(true);
     };
-   
+
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        // if(pass !== '6695ba86255aebec21d3a418'){
-        //     setPass('');
-        //     setHideError(false)
-            
-        //     return 
-        // }
         const gameData = {
             pageTitle,
             instructions: gameInstructions,
@@ -81,6 +77,7 @@ const Dashboard = () => {
         .then(data => {
             console.log('Éxito:', data);
             setMessage('¡Datos guardados con éxito!');
+            setIsModified(false);  // Deshabilitar el botón después de guardar
             setTimeout(() => setMessage(''), 3000); // Limpiar el mensaje después de 3 segundos
         })
         .catch((error) => {
@@ -111,7 +108,7 @@ const Dashboard = () => {
                     <input
                         type="text"
                         value={pageTitle}
-                        onChange={(e) => setPageTitle(e.target.value)}
+                        onChange={(e) => { setPageTitle(e.target.value); setIsModified(true); }}
                         required
                     />
                 <br /><br />
@@ -121,7 +118,7 @@ const Dashboard = () => {
                     <br /> <br />
                     <textarea
                         value={gameInstructions}
-                        onChange={(e) => setGameInstructions(e.target.value)}
+                        onChange={(e) => { setGameInstructions(e.target.value); setIsModified(true); }}
                         rows="4"
                         cols="50"
                         required
@@ -150,7 +147,7 @@ const Dashboard = () => {
                             />
                             <button type="button" className='delete-button' onClick={() => handleRemoveConceptPair(index)}>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-trash3-fill" viewBox="0 0 16 16">
-                                    <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
+                                    <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
                                 </svg>
                             </button>
                         </div>
@@ -164,15 +161,8 @@ const Dashboard = () => {
                     </svg>
                 </span>
                 <br /><br />
-                {/* <label>Pass</label> <br /><br />
-                <input type="text" 
-                    required
-                    value={pass}
-                    onChange={(e)=> setPass(e.target.value)}
-                /> */}
 
-
-                <button className='save-button' type="submit">
+                <button className='save-button' type="submit" disabled={!isModified}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-floppy2-fill" viewBox="0 0 16 16">
                         <path d="M12 2h-2v3h2z"/>
                         <path d="M1.5 0A1.5 1.5 0 0 0 0 1.5v13A1.5 1.5 0 0 0 1.5 16h13a1.5 1.5 0 0 0 1.5-1.5V2.914a1.5 1.5 0 0 0-.44-1.06L14.147.439A1.5 1.5 0 0 0 13.086 0zM4 6a1 1 0 0 1-1-1V1h10v4a1 1 0 0 1-1 1zM3 9h10a1 1 0 0 1 1 1v5H2v-5a1 1 0 0 1 1-1"/>
@@ -182,12 +172,6 @@ const Dashboard = () => {
             </form>
             {message && <div className="message">{message}</div>}
         </div>
-        {/* <div className='modal' hidden={hideError}>
-                <div className='modal-content'>
-                    <span className="close" id="closeModal" onClick={setHideError(true)}>&times;</span>
-                    <p>Pass incorrecta</p>
-                </div>
-            </div> */}
         </>
     );
 };

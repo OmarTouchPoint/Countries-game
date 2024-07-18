@@ -37,6 +37,7 @@ input:focus-visible, textarea:focus-visible{
     border-radius: 100%;
     width:40px;
     height: 40px;
+    cursor: pointer;
 
 }
 .delete-button svg path{
@@ -86,6 +87,7 @@ input:focus-visible, textarea:focus-visible{
 }
 .save-button:disabled{
     background-color: gray;
+    cursor: default;
 }
 .message{
     font-size: 18px;
@@ -151,8 +153,8 @@ input:focus-visible, textarea:focus-visible{
     color: white;
 }
 
-.incorrect {
-    background-color: #FA1500;
+.incorrect, .incorrect:hover {
+    background-color: #FA1500 !important;
     color: white;
 }
 

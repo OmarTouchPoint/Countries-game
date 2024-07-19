@@ -3,16 +3,6 @@ import "../styles/globals.css";
 import {petitionsURL} from "../assets/urlBuilder";
 import {shuffleArray} from"../assets/shuffle";
 
-
-// const instructions = 'Relaciona cada país con su capital haciendo click en uno y luego en otro.';
-// const pagetitle = 'Juego de Capitales'
-// const concepts = [
-//     { concept1: 'España', concept2: 'Madrid' },
-//     { concept1: 'Francia', concept2: 'París' },
-//     { concept1: 'Japón', concept2: 'Tokio' },
-//     { concept1: 'Alemania', concept2: 'Berlín' }
-// ];
-
     const data = await fetch(petitionsURL);
 
     const pageData = await data.json()
